@@ -37,36 +37,70 @@ export default function PortfolioPage() {
       {/* Header */}
       <header className="fixed top-0 w-full bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm z-50">
         <div className="container mx-auto flex justify-end items-center p-4 space-x-4">
-          {/* Nav Links */}
-          <nav className={`${navOpen ? 'flex' : 'hidden'} md:flex items-center space-x-6 bg-white/30 dark:bg-gray-900/30 backdrop-blur-md rounded-md p-4 md:p-0 absolute md:relative top-full md:top-auto right-4 md:right-auto shadow-lg md:shadow-none`}>
-            {['home','projects','skills','contact'].map(sec => (
-              <button key={sec}
-                onClick={() => { setNavOpen(false); scrollTo(sec); }}
+          {/* Mobile: Hamburger + Theme Toggle */}
+          <div className="md:hidden flex items-center space-x-2">
+            <button
+              onClick={() => setNavOpen(o => !o)}
+              className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              aria-label="Toggle menu"
+            >
+              {navOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+            {mounted && (
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+            )}
+          </div>
+          {/* Desktop Nav + Theme */}
+          <nav className="hidden md:flex items-center space-x-6">
+            {['home', 'projects', 'skills', 'contact'].map(sec => (
+              <button
+                key={sec}
+                onClick={() => scrollTo(sec)}
                 className="uppercase text-sm font-medium hover:text-primary transition"
-              >{sec}</button>
+              >
+                {sec}
+              </button>
             ))}
             {mounted && (
-              <button onClick={toggleTheme} className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition">
-                {theme==='dark'?<Sun size={20}/>:<Moon size={20}/>}              
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
               </button>
             )}
           </nav>
-          {/* Hamburger Toggle */}
-          <button
-            className="md:hidden p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-            onClick={() => setNavOpen(o => !o)}
-            aria-label="Toggle menu"
-          >
-            {navOpen? <X size={24}/> : <Menu size={24}/>}
-          </button>
         </div>
+        {/* Mobile Dropdown */}
+        <nav
+          className={`${navOpen ? 'flex' : 'hidden'} md:hidden flex-col space-y-2 bg-white/30 dark:bg-gray-900/30 backdrop-blur-md p-4 mx-4 rounded-b-lg shadow-lg`}
+        >
+          {['home', 'projects', 'skills', 'contact'].map(sec => (
+            <button
+              key={sec}
+              onClick={() => { setNavOpen(false); scrollTo(sec); }}
+              className="w-full text-left uppercase text-sm font-medium hover:text-primary transition"
+            >
+              {sec}
+            </button>
+          ))}
+        </nav>
       </header>
 
       {/* Hero */}
       <section id="home" className="min-h-screen flex flex-col justify-center items-center px-6 pt-20">
         <motion.h1
           className="text-6xl font-bold mb-4"
-          initial={{scale:0.8,opacity:0}} animate={{scale:1,opacity:1}} transition={{duration:0.8}}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8 }}
         >
           GGVersed
         </motion.h1>
@@ -84,9 +118,16 @@ export default function PortfolioPage() {
         </div>
         <div className="h-10 mb-8 relative">
           <AnimatePresence mode="wait">
-            <motion.h2 key={taglineIndex} className="text-2xl font-semibold"
-              initial={{y:20,opacity:0}} animate={{y:0,opacity:1}} exit={{y:-20,opacity:0}} transition={{duration:0.5}}
-            >{taglines[taglineIndex]}</motion.h2>
+            <motion.h2
+              key={taglineIndex}
+              className="text-2xl font-semibold"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {taglines[taglineIndex]}
+            </motion.h2>
           </AnimatePresence>
         </div>
         <p className="text-lg text-center max-w-md text-gray-700 dark:text-gray-300 mb-16">
@@ -97,11 +138,16 @@ export default function PortfolioPage() {
       {/* Projects Section */}
       <section id="projects" className="w-full py-16 bg-secondary/10 dark:bg-secondary/20">
         <div className="container mx-auto px-4">
-          <motion.h2 className="text-4xl font-semibold text-center mb-8"
-            initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} transition={{duration:0.6}}
-          >Projects</motion.h2>
+          <motion.h2
+            className="text-4xl font-semibold text-center mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Projects
+          </motion.h2>
           <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((p,i)=>(
+            {projects.map((p, i) => (
               <motion.div
                 key={p.title}
                 className="relative block p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition cursor-pointer"
@@ -146,8 +192,10 @@ export default function PortfolioPage() {
       <section id="skills" className="w-full py-16">
         <h2 className="text-4xl font-semibold text-center mb-8">Skills</h2>
         <div className="flex flex-wrap justify-center gap-4 px-6">
-          {['Next.js','React','Tailwind','TypeScript','Framer Motion','Node.js','Express','HTML','CSS','JavaScript','C#','Lua'].map(skill=>(
-            <span key={skill} className="px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary">{skill}</span>
+          {['Next.js', 'React', 'Tailwind', 'TypeScript', 'Framer Motion', 'Node.js', 'Express', 'HTML', 'CSS', 'JavaScript', 'C#', 'Lua'].map(skill => (
+            <span key={skill} className="px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary">
+              {skill}
+            </span>
           ))}
         </div>
       </section>
@@ -155,11 +203,16 @@ export default function PortfolioPage() {
       {/* Contact Section */}
       <section id="contact" className="w-full py-16 bg-primary/20 flex flex-col items-center">
         <h2 className="text-4xl font-semibold mb-4">Get In Touch</h2>
-        <p className="mb-6 text-center max-w-md">I’m open to collaborating on projects. Reach out via email to start a conversation!</p>
-        <motion.a href="mailto:you@example.com"
+        <p className="mb-6 text-center max-w-md">
+          I’m open to collaborating on projects. Reach out via email to start a conversation!
+        </p>
+        <motion.a
+          href="mailto:you@example.com"
           className="px-8 py-3 bg-primary text-white font-medium rounded-full hover:bg-primary/90 transition"
-          whileHover={{scale:1.05}}
-        >Say Hello</motion.a>
+          whileHover={{ scale: 1.05 }}
+        >
+          Say Hello
+        </motion.a>
       </section>
     </div>
   );
