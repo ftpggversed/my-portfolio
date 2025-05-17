@@ -1,7 +1,7 @@
 /* styles/globals.css */
 
 /* 1. Enable manual dark-mode toggling via the `.dark` class */
-@custom-variant dark (&:where(.dark, .dark *)); /* ([tailwindcss.com](https://tailwindcss.com/docs/dark-mode?utm_source=chatgpt.com)) */
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* 2. Import Tailwind v4 core layers */
 @import "tailwindcss";
@@ -12,15 +12,16 @@
   :root {
     --color-bg: theme('colors.white');
     --color-text: theme('colors.gray.900');
-    --color-primary: theme('colors.indigo.500');
+    --color-primary: theme('colors.pink.400');    /* ← was indigo.500 */
     --font-sans: theme('fontFamily.sans');
   }
   /* dark-mode overrides when <html class="dark"> is present */
   html.dark {
     --color-bg: theme('colors.gray.900');
     --color-text: theme('colors.gray.100');
-    --color-primary: theme('colors.pink.400');
+    --color-primary: theme('colors.indigo.500'); /* ← was pink.400 */
   }
+
   html {
     background-color: var(--color-bg);
     color: var(--color-text);

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { FaGithub, FaDiscord, FaTiktok } from 'react-icons/fa';
 import { Menu, X, Sun, Moon } from 'lucide-react';
@@ -34,6 +35,7 @@ export default function PortfolioPage() {
 
   return (
     <div className="flex flex-col items-center bg-bg text-text transition-colors duration-500">
+
       {/* Header */}
       <header className="fixed top-0 w-full bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm z-50">
         <div className="container mx-auto flex justify-end items-center p-4 space-x-4">
@@ -96,6 +98,18 @@ export default function PortfolioPage() {
 
       {/* Hero */}
       <section id="home" className="min-h-screen flex flex-col justify-center items-center px-6 pt-20">
+
+        {/* Profile Picture */}
+        <div className="mb-6">
+          <Image
+            src="/images/kuromi.jpg"
+            alt="Profile Picture"
+            width={150}
+            height={150}
+            className="rounded-full border-4 border-primary"
+          />
+        </div>
+
         <motion.h1
           className="text-6xl font-bold mb-4"
           initial={{ scale: 0.8, opacity: 0 }}
@@ -156,7 +170,7 @@ export default function PortfolioPage() {
                 transition={{ delay: i * 0.2, duration: 0.5 }}
               >
                 {/* Badge */}
-                <span className="absolute top-3 right-3 bg-indigo-600 dark:bg-indigo-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                <span className="absolute top-3 right-3 bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
                   In Development
                 </span>
                 <Link href={p.href} className="block">
@@ -175,7 +189,7 @@ export default function PortfolioPage() {
                       href="https://discord.gg/BBBcbw3kdS"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-indigo-600 dark:bg-indigo-500 text-white rounded-lg shadow-md hover:bg-indigo-700 dark:hover:bg-indigo-600 transition"
+                      className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-primary/90 transition"
                     >
                       <FaDiscord className="mr-2" />
                       Join Discord
