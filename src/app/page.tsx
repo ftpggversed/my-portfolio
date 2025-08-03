@@ -796,7 +796,7 @@ export default function PortfolioPage() {
           </div>
           <div className="flex flex-col items-center space-y-4">
             <motion.a
-              href="mailto:you@example.com"
+              href="mailto:ggversed.ttv@gmail.com"
               className="px-8 py-3 bg-primary text-white font-medium rounded-full hover:bg-primary/90 transition shadow-lg"
               whileHover={{ scale: 1.05 }}
             >
