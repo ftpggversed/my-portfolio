@@ -58,11 +58,11 @@ export default function PortfolioPage() {
 
   // Data for the Community Contributions section
   const communityWork = [
-    { title: 'Owner', server: 'Soul Network', desc: 'Oversaw all aspects of server management, community engagement, and technical infrastructure for the Minecraft server.', website: '#', discord: 'https://discord.gg/s3rgU7jtJE', retired: false },
-    { title: 'Owner', server: 'Phantom Solutions', desc: 'Managed a large Discord server for the Phantom Nodes project, including moderation, community events, and user support.', website: 'https://phantom-nodes.vercel.app', discord: 'https://discord.gg/BBBcbw3kdS', retired: false },
-    { title: 'Manager', server: 'CoastSMP', desc: 'Coordinated a team of staff members, handled player relations, and managed day-to-day operations for the Minecraft server.', website: 'https://store.coastsmp.net/', discord: 'https://discord.gg/invite/coastsmp', retired: true },
-    { title: 'Manager', server: 'Blossom Network', desc: 'Led a team of moderators and a server-side development team to deliver a smooth and enjoyable experience, but the network has since been reworked and I no longer have any contact information.', website: '#', discord: '#', retired: true },
-    { title: 'Support Staff', server: 'Artillex Studios', desc: 'Provided technical support and customer service to community members, resolving issues and ensuring a positive user experience.', website: 'https://www.artillex-studios.com/', discord: 'https://discord.gg/rGgm7duNk7', retired: false }
+    { title: 'Owner', server: 'Soul Network', desc: 'Oversaw all aspects of server management, community engagement, and technical infrastructure for the Minecraft server.', website: '#', discord: 'https://discord.gg/s3rgU7jtJE', retired: false, active: true },
+    { title: 'Owner', server: 'Phantom Solutions', desc: 'Managed a large Discord server for the Phantom Nodes project, including moderation, community events, and user support.', website: 'https://phantom-nodes.vercel.app', discord: 'https://discord.gg/BBBcbw3kdS', retired: false, active: true },
+    { title: 'Manager', server: 'CoastSMP', desc: 'Coordinated a team of staff members, handled player relations, and managed day-to-day operations for the Minecraft server.', website: 'https://store.coastsmp.net/', discord: 'https://discord.gg/invite/coastsmp', retired: true, active: false },
+    { title: 'Manager', server: 'Blossom Network', desc: 'Led a team of moderators and a server-side development team to deliver a smooth and enjoyable experience, but the network has since been reworked and I no longer have any contact information.', website: '#', discord: '#', retired: true, active: false },
+    { title: 'Support Staff', server: 'Artillex Studios', desc: 'Provided technical support and customer service to community members, resolving issues and ensuring a positive user experience.', website: 'https://www.artillex-studios.com/', discord: 'https://discord.gg/rGgm7duNk7', retired: false, active: true },  
   ];
   
   // Data for the Skills section, grouped by category
@@ -81,7 +81,7 @@ export default function PortfolioPage() {
     },
     {
       category: 'Game Development',
-      items: ['Three.js', 'Lua']
+      items: ['C#', 'Lua', 'Minecraft Development', 'Unity']
     }
   ];
 
@@ -92,8 +92,10 @@ export default function PortfolioPage() {
     currentFocus: [
       'Learning backend development with Node.js and Supabase.',
       'Developing the "JustMyLinks" project with new features and a better UI.',
-      'Contributing to open-source projects on GitHub.',
+      'Studying for the comptia A+ certification to solidify my IT fundamentals.',
       'Improving my skills with TypeScript and modern React hooks.',
+      'Working on the "JustMyCDN" project to provide a fast, reliable CDN for creators.',
+      'Developing Soul Network a Minecraft server with a focus on community engagement and performance.'
     ]
   };
 
@@ -643,6 +645,16 @@ export default function PortfolioPage() {
                     {item.title}
                   </span>
                 </div>
+                 <div className="absolute top-3 right-3 flex space-x-2">
+                  {item.active && (
+                    <span className="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                      Active
+                    </span>
+                  )}
+                  <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
+                    {item.title}
+                  </span>
+                </div>
                 <h3 className="text-xl font-bold mb-2">{item.server}</h3>
                 <p className="text-gray-600 dark:text-gray-400">{item.desc}</p>
                 <div className="mt-4 flex justify-between items-center">
@@ -804,6 +816,8 @@ export default function PortfolioPage() {
           </div>
         </div>
       </section>
+      
     </div>
+    
   );
 }
