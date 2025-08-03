@@ -1,13 +1,13 @@
 // File: src/app/page.tsx
 // This is the main portfolio page component, written in TypeScript with JSX (.tsx).
-// This version fixes a TypeScript error related to accessing the opacity of a THREE.js material.
+// This version features a longer, more professional development banner.
 
 'use client';
 
 import Image from 'next/image';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { FaGithub, FaDiscord, FaTiktok } from 'react-icons/fa';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Wrench } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
@@ -34,6 +34,7 @@ export default function PortfolioPage() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [taglineIndex, setTaglineIndex] = useState(0);
+  const [showBanner, setShowBanner] = useState(true);
 
   // State to track if the device is a mobile device (for performance optimization)
   const [isMobile, setIsMobile] = useState(false);
@@ -435,22 +436,58 @@ export default function PortfolioPage() {
         </nav>
       </header>
 
+      {/* Development Banner with improved styling and animation */}
+      <AnimatePresence>
+        {showBanner && (
+          <motion.div
+            initial={{ y: -60, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -60, opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 px-4 flex flex-col md:flex-row items-center justify-center text-center text-sm font-semibold relative z-40 mt-16 md:mt-16"
+          >
+            <div className="flex items-center space-x-3">
+              <motion.span
+                className="inline-block"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+              >
+                <Wrench size={20} />
+              </motion.span>
+              <p>
+                This portfolio is a work-in-progress and contains placeholders but we are constantly evolving with new projects and features. 
+                <br/>
+                 Check back soon for exciting updates and a better user experience!
+              </p>
+            </div>
+            <button onClick={() => setShowBanner(false)} className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/20 transition" aria-label="Dismiss banner">
+              <X size={16} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Hero */}
-      <section id="home" className="min-h-screen flex flex-col justify-center items-center px-6 pt-20 relative z-10">
+      <section id="home" className="min-h-screen flex flex-col justify-center items-center px-4 md:px-6 pt-20 relative z-10">
 
         {/* Profile Picture */}
-        <div className="mb-6">
+        <motion.div
+          className="mb-6"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
           <Image
             src="/images/kuromi.jpg"
             alt="Profile Picture"
             width={150}
             height={150}
-            className="rounded-full border-4 border-primary"
+            className="rounded-full border-4 border-primary shadow-lg"
           />
-        </div>
+        </motion.div>
 
         <motion.h1
-          className="text-6xl font-bold mb-4 text-center"
+          className="text-4xl md:text-6xl font-bold mb-4 text-center"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -458,7 +495,7 @@ export default function PortfolioPage() {
           GGVersed
         </motion.h1>
         {/* Social Icons */}
-        <div className="flex space-x-6 mb-6">
+        <div className="flex space-x-4 md:space-x-6 mb-6">
           <Link href="https://github.com/ftpggversed" target="_blank" className="hover:text-primary transition">
             <FaGithub size={24} className={`${!mounted || theme === 'dark' ? 'text-white' : 'text-black'} transition-colors`} />
           </Link>
@@ -469,11 +506,11 @@ export default function PortfolioPage() {
             <FaTiktok size={24} className={`${!mounted || theme === 'dark' ? 'text-white' : 'text-black'} transition-colors`} />
           </Link>
         </div>
-        <div className="h-10 mb-8 relative">
+        <div className="h-10 mb-6 md:mb-8 relative">
           <AnimatePresence mode="wait">
             <motion.h2
               key={taglineIndex}
-              className="text-2xl font-semibold"
+              className="text-xl md:text-2xl font-semibold"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -20, opacity: 0 }}
@@ -483,23 +520,23 @@ export default function PortfolioPage() {
             </motion.h2>
           </AnimatePresence>
         </div>
-        <p className="text-lg text-center max-w-md text-gray-700 dark:text-gray-300 mb-16">
+        <p className="text-base md:text-lg text-center max-w-md text-gray-700 dark:text-gray-300 mb-8 md:mb-16">
           A passionate frontend developer crafting beautiful and performant web applications. Learning backend development, self-taught, and occasionally vibe-code for fun.
         </p>
       </section>
-      
+
       {/* Now Section */}
       <section id="now" className="w-full py-16 bg-secondary/10 dark:bg-secondary/20 relative z-10">
         <div className="container mx-auto px-4">
           <motion.h2
-            className="text-4xl font-semibold text-center mb-8"
+            className="text-3xl md:text-4xl font-semibold text-center mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             {nowPageContent.title}
           </motion.h2>
-          <p className="text-lg text-center max-w-2xl mx-auto mb-8 text-gray-700 dark:text-gray-300">
+          <p className="text-base md:text-lg text-center max-w-2xl mx-auto mb-8 text-gray-700 dark:text-gray-300">
             {nowPageContent.description}
           </p>
           <motion.div
@@ -516,7 +553,7 @@ export default function PortfolioPage() {
                 whileInView={{ x: 0, opacity: 1 }}
                 transition={{ delay: i * 0.2, duration: 0.5 }}
               >
-                <p className="text-lg text-gray-800 dark:text-gray-200">
+                <p className="text-base md:text-lg text-gray-800 dark:text-gray-200">
                   {item}
                 </p>
               </motion.div>
@@ -529,7 +566,7 @@ export default function PortfolioPage() {
       <section id="projects" className="w-full py-16 bg-secondary/10 dark:bg-secondary/20 relative z-10">
         <div className="container mx-auto px-4">
           <motion.h2
-            className="text-4xl font-semibold text-center mb-8"
+            className="text-3xl md:text-4xl font-semibold text-center mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -580,7 +617,7 @@ export default function PortfolioPage() {
       <section id="community" className="w-full py-16 bg-secondary/10 dark:bg-secondary/20 relative z-10">
         <div className="container mx-auto px-4">
           <motion.h2
-            className="text-4xl font-semibold text-center mb-8"
+            className="text-3xl md:text-4xl font-semibold text-center mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -643,7 +680,7 @@ export default function PortfolioPage() {
       <section id="skills" className="w-full py-16 relative z-10">
         <div className="container mx-auto px-4">
           <motion.h2
-            className="text-4xl font-semibold text-center mb-8"
+            className="text-3xl md:text-4xl font-semibold text-center mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -659,7 +696,7 @@ export default function PortfolioPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.2, duration: 0.5 }}
               >
-                <h3 className="text-2xl font-bold mb-4 border-b pb-2 border-primary/30">{skillCategory.category}</h3>
+                <h3 className="text-xl md:text-2xl font-bold mb-4 border-b pb-2 border-primary/30">{skillCategory.category}</h3>
                 <div className="flex flex-wrap gap-2">
                   {skillCategory.items.map(skill => (
                     <span key={skill} className="px-3 py-1 bg-primary/10 dark:bg-primary/20 rounded-full text-primary text-sm font-medium">
@@ -677,7 +714,7 @@ export default function PortfolioPage() {
       <section id="certifications" className="w-full py-16 bg-secondary/10 dark:bg-secondary/20 relative z-10">
         <div className="container mx-auto px-4">
           <motion.h2
-            className="text-4xl font-semibold text-center mb-8"
+            className="text-3xl md:text-4xl font-semibold text-center mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -706,10 +743,10 @@ export default function PortfolioPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="w-full py-16 bg-secondary/10 dark:bg-secondary/20 relative z-10">
+      <section id="testimonials" className="w-full py-16 relative z-10">
         <div className="container mx-auto px-4">
           <motion.h2
-            className="text-4xl font-semibold text-center mb-8"
+            className="text-3xl md:text-4xl font-semibold text-center mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -725,7 +762,7 @@ export default function PortfolioPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.2, duration: 0.5 }}
               >
-                <p className="text-lg text-gray-700 dark:text-gray-300 mb-4 italic">
+                <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 mb-4 italic">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
                 <p className="font-bold">{testimonial.name}</p>
@@ -740,8 +777,8 @@ export default function PortfolioPage() {
       <section id="contact" className="w-full py-16 bg-primary/20 flex flex-col items-center relative z-10">
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
           <div className="text-center md:text-left max-w-md">
-            <h2 className="text-4xl font-semibold mb-4">Get In Touch</h2>
-            <p className="text-lg text-gray-700 dark:text-gray-300">
+            <h2 className="text-3xl md:text-4xl font-semibold mb-4">Get In Touch</h2>
+            <p className="text-base md:text-lg text-gray-700 dark:text-gray-300">
               Feel free to reach out to me for collaborations, questions, or just to say hello! You can connect with me through the links below or send me an email.
             </p>
           </div>
